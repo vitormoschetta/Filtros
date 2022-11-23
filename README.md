@@ -7,7 +7,7 @@ Um filtro pode ser adicionado ao pipeline com um de três escopos:
 ```csharp
 builder.Services.AddMvc(options =>
 { 
-    options.Filters.Add(new LoggingActionAttribute());     
+    options.Filters.Add(new LoggingActionFilter());     
 });
 ```
 
@@ -30,4 +30,26 @@ public IActionResult Index()
     // ...
 }
 ```
+
+## Injeção de dependência
+
+O filtro que NÃO implementa a classe `Attribute` pode receber dependências através do construtor. Para isso, é necessário registrar o filtro no `program.cs`:
+
+```csharp
+builder.Services.AddScoped<LoggingActionFilter>();
+```
+E configurar no `controller.cs`:
+
+```csharp
+[ServiceFilter(typeof(LoggingActionAttribute))]
+public class HomeController : Controller
+{
+    // ...
+}
+```
+
+
+## Referências
+
+https://learn.microsoft.com/pt-br/aspnet/core/mvc/controllers/filters?view=aspnetcore-6.0
 

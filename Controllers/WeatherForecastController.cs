@@ -1,4 +1,3 @@
-using System.Net;
 using Filtros.Filters;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +5,7 @@ namespace Filtros.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-// [LoggingAction]
+[ServiceFilter(typeof(LoggingActionFilter))]
 public class WeatherForecastController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
@@ -35,7 +34,7 @@ public class WeatherForecastController : ControllerBase
         .ToArray();
     }
 
-    [HttpPost]    
+    [HttpPost]
     public WeatherForecast Post(WeatherForecast weatherForecast)
     {
         return weatherForecast;
