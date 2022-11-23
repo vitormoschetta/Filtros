@@ -6,7 +6,7 @@ namespace Filtros.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[LoggingAction]
+// [LoggingAction]
 public class WeatherForecastController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
@@ -22,6 +22,7 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet]
+    [HeaderAction("X-API-VERSION", "1")]
     public IEnumerable<WeatherForecast> Get()
     {
         var rng = new Random();
@@ -34,7 +35,7 @@ public class WeatherForecastController : ControllerBase
         .ToArray();
     }
 
-    [HttpPost]
+    [HttpPost]    
     public WeatherForecast Post(WeatherForecast weatherForecast)
     {
         return weatherForecast;
